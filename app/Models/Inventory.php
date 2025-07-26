@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Inventory
- * 
+ *
  * @property int $id
  * @property int $medicine_id
  * @property string $location_type
@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $last_updated
  * @property int|null $pharmacy_id
  * @property int|null $warehouse_id
- * 
+ *
  * @property Medicine $medicine
  * @property Pharmacy|null $pharmacy
  * @property Warehouse|null $warehouse
@@ -71,4 +71,12 @@ class Inventory extends Model
 	{
 		return $this->belongsTo(Warehouse::class);
 	}
+
+    public static function booted()
+    {
+        $pharmacyId =
+        static::creating(function($model){
+            $model->pharmacy_id = auth()->user()->pharmacy_id;
+        });
+    }
 }
