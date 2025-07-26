@@ -12,14 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Purchaseorder
- * 
+ *
  * @property int $id
  * @property int $supplier_id
  * @property int $pharmacy_id
  * @property Carbon $order_date
  * @property Carbon|null $delivery_date
  * @property string $status
- * 
+ *
  * @property Pharmacy $pharmacy
  * @property Supplier $supplier
  * @property Invoice|null $invoice
@@ -66,4 +66,11 @@ class Purchaseorder extends Model
 	{
 		return $this->hasMany(Purchaseorderitem::class, 'order_id');
 	}
+
+    public static function booted()
+    {
+        static::creating(function($model){
+            $model->pharmacy_id = auth()->user()->pharmacy_id;
+        });
+    }
 }

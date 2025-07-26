@@ -12,14 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Sale
- * 
+ *
  * @property int $id
  * @property int $pharmacy_id
  * @property string|null $customer_name
  * @property Carbon $sale_date
  * @property float $total_amount
  * @property string $payment_mode
- * 
+ *
  * @property Pharmacy $pharmacy
  * @property Collection|Saleitem[] $saleitems
  *
@@ -53,4 +53,11 @@ class Sale extends Model
 	{
 		return $this->hasMany(Saleitem::class);
 	}
+
+    public static function booted()
+    {
+        static::creating(function($model){
+            $model->pharmacy_id = auth()->user()->pharmacy_id;
+        });
+    }
 }
