@@ -18,15 +18,19 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
+use App\Filament\Pages\Auth\UserLogin;
+
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
-            ->login()
+            ->authGuard('pharmacy') 
+            ->path('dashboard')
+            ->login(UserLogin::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -52,7 +56,7 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                Authenticate::class,
+                \Filament\Http\Middleware\Authenticate::class,
             ]);
     }
 }

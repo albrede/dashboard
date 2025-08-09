@@ -6,8 +6,12 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class Supplier
@@ -29,7 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Supplier extends Model
+class Supplier extends Authenticatable implements FilamentUser, HasName
 {
 	protected $table = 'supplier';
 	public $timestamps = false;
@@ -68,4 +72,13 @@ class Supplier extends Model
 	{
 		return $this->hasMany(Purchaseorder::class);
 	}
+	 public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        return $this->role === 'SUPPLIER_ADMIN';
+    }
+    
+    public function getFilamentName(): string
+    {
+        return $this->name ?? $this->email;
+    }
 }
