@@ -126,6 +126,11 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+        'nestjs' => [
+        'driver' => 'single',
+        'path' => storage_path('logs/nestjs.log'),
+        'level' => 'debug',
+    ],
 
     ],
 

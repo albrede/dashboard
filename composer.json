@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "filament/filament": "3.3",
+        "firebase/php-jwt": "^6.11",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "spatie/laravel-permission": "^6.21"
@@ -15,7 +16,7 @@
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "kitloong/laravel-migrations-generator": "^7.1",
-        "laravel/pail": "^1.2.2",
+        "laravel/pail": "1.x-dev",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",

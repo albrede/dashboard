@@ -31,14 +31,17 @@ class Saleitem extends Model
 		'sale_id' => 'int',
 		'medicine_id' => 'int',
 		'quantity' => 'int',
-		'unit_price' => 'float'
+		'unit_price' => 'float',
+		'cost_price' => 'float'
+		
 	];
 
 	protected $fillable = [
 		'sale_id',
 		'medicine_id',
 		'quantity',
-		'unit_price'
+		'unit_price',
+		'cost_price'
 	];
 
 	public function medicine()

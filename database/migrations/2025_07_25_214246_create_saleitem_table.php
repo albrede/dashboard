@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('medicine_id')->index('saleitem_medicine_id_fkey');
             $table->integer('quantity');
             $table->decimal('unit_price', 65, 30);
+            $table->decimal('cost_price', 65, 30);
         });
     }
 
