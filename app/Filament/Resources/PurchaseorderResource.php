@@ -37,6 +37,25 @@ class PurchaseorderResource extends Resource
                 Forms\Components\TextInput::make('status')
                     ->required()
                     ->maxLength(191),
+                Forms\Components\Section::make('items')
+                    ->description('Medicines on this bill')
+                    ->collapsed()
+                    ->schema([
+                        Forms\Components\Repeater::make('medicine')
+                            ->relationship('purchaseorderitems')
+                            ->label('medicines')
+                            ->schema([
+                                Forms\Components\Select::make('medicine_id')
+                                    ->label('medicine')
+                                    ->options(\App\Models\Medicine::all()->mapWithKeys(fn($record) => [
+                                        $record->id => $record->name
+                                    ]))
+                                    ->searchable()
+                                    ->required(),
+                                Forms\Components\TextInput::make('quantity')->label('quantity')->numeric()->required(),
+                                Forms\Components\TextInput::make('unit_price')->label('unit price')->numeric()->required(),
+                            ])->columns(3)
+                    ])
             ]);
     }
 
